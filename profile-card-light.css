@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: rgba(138, 180, 248, 1);
+    padding: 18px;
+}
+
+.card-border-frame {
+    width: 100%;
+    max-width: 501px;
+    height: auto;
+    background: #ffffff;
+    border-radius: 73px;
+    box-shadow: 0 4px 19px 7px rgba(0, 0, 0, 0.067);
+    padding: 16px;
+}
+
+.card-main-frame {
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    border-radius: 57px;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-image-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 105.8%; /* Maintain aspect ratio (496/469) */
+    border-radius: 53px;
+    overflow: hidden;
+    position: relative;
+    margin-top: -2.5px;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.profile-content {
+    padding: 40px 35px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.name {
+    font-size: 38px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 45px;
+}
+
+.verification-badge {
+    flex-shrink: 0;
+    font-size: 50px;
+    color: #41D646;
+}
+
+.bio {
+    font-size: 26px;
+    font-weight: 400;
+    color: #767676;
+    line-height: 1.6;
+    margin-bottom: 34px;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-item i {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: #8f8f8f;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.followers {
+    margin-left: -1px;
+}
+
+.likes {
+    margin-right: 27px;
+}
+
+.follow-button {
+    width: 193px;
+    /* height: 80px; */
+    background: #efefef;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.286);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 42px;
+    transition: all 0.2s ease;
+}
+
+.follow-button:hover {
+    background: #e5e5e5;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.follow-button:active {
+    transform: translateY(0);
+}
+
+.follow-text {
+    font-size: 26px;
+    font-weight: 500;
+    color: #000000;
+    line-height: 31px;
+}
+
+.plus-sign {
+    color: #000000;
+    font-size: 28px;
+}
+
+i.user-followers {
+    font-size: 20px;
+}
+
+i.check-sign {
+    font-size: 20px;
+}
+
+/* Tablet and smaller */
+@media (max-width: 768px) {
+    body {
+        padding: 16px;
+    }
+
+    .card-border-frame {
+        border-radius: 48px;
+        padding: 12px;
+    }
+
+    .card-main-frame {
+        border-radius: 36px;
+    }
+
+    .profile-image-container {
+        border-radius: 36px;
+    }
+
+    .profile-content {
+        padding: 32px 24px;
+    }
+
+    .name {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .verification-badge {
+        font-size: 40px;
+    }
+
+    .bio {
+        font-size: 22px;
+        margin-bottom: 28px;
+    }
+
+    .stats {
+        gap: 27px;
+    }
+
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .stat-item i {
+        font-size: 18px;
+    }
+
+    .follow-button {
+        width: 193px;
+        padding: 20px 32px;
+        border-radius: 40px;
+    }
+
+    .follow-text {
+        font-size: 22px;
+    }
+
+    .plus-sign {
+        font-size: 24px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .card-border-frame {
+        border-radius: 32px;
+        padding: 8px;
+    }
+
+    .card-main-frame {
+        border-radius: 24px;
+    }
+
+    .profile-image-container {
+        border-radius: 24px;
+    }
+
+    .profile-content {
+        padding: 24px 16px;
+    }
+
+    .profile-header {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .name {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    .verification-badge {
+        font-size: 32px;
+    }
+
+    .bio {
+        font-size: 18px;
+        margin-bottom: 24px;
+    }
+
+    .stats {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .followers,
+    .likes {
+        margin: 0;
+    }
+
+    .stat-number {
+        font-size: 18px;
+    }
+
+    .stat-item i {
+        font-size: 16px;
+    }
+
+    .follow-button {
+        width: 140px;
+        padding: 16px 24px;
+        border-radius: 28px;
+        gap: 6px;
+        margin-left: auto;
+    }
+
+    .follow-text {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .plus-sign {
+        font-size: 20px;
+    }
+}

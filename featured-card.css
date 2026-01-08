@@ -1,0 +1,122 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	background-color: rgba(138, 180, 248, 1);
+	font-family: "Inter", sans-serif;
+	padding-top: 40px;
+}
+
+.card-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 18px; /* Add padding to the container to prevent the card from touching the edges */
+}
+
+.card {
+	width: 100%; /* Make the card take up 100% of its parent's width */
+	max-width: 351px; /* Set the maximum width for the card */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.23);
+	border-radius: 21px;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.card-image-container {
+	padding: 18px 18px 0; /* Adjust padding to keep inner content spaced */
+	margin-bottom: 18px;
+}
+
+.card-image img {
+	width: 100%; /* Make the image take up 100% of its parent's width */
+	height: auto; /* Allow the height to adjust proportionally */
+	max-width: 315px; /* Set the maximum width for the image */
+	display: block; /* Remove any extra space below the image */
+	margin: 0 auto; /* Center the image */
+	border-radius: 13px;
+}
+
+.title-container {
+	margin-bottom: 8px;
+}
+
+.title-text {
+	color: rgba(30, 30, 31, 1);
+	font-size: 28px;
+	font-weight: 600;
+	letter-spacing: -0.8px;
+	text-align: center;
+}
+
+.date-container {
+	margin-bottom: 12px;
+}
+
+.date-text {
+	color: rgba(118, 125, 125, 1);
+	font-size: 18px;
+	font-weight: 400;
+	letter-spacing: -0.51px;
+	text-align: center;
+}
+
+.exif-container {
+	margin-bottom: 12px;
+}
+
+.exif-text {
+	color: rgba(118, 125, 125, 1);
+	font-size: 18px;
+	font-weight: 400;
+	letter-spacing: -0.51px;
+	text-align: center;
+}
+
+.mood-container {
+	margin-bottom: 15px;
+}
+
+.mood-text {
+	color: rgba(118, 125, 125, 1);
+	font-size: 18px;
+	font-weight: 400;
+	letter-spacing: -0.51px;
+	text-align: center;
+}
+
+.line-container {
+	margin-bottom: 23px;
+	display: flex;
+	justify-content: center;
+}
+
+.line {
+	width: calc(100% - 36px); /* Adjust line width to match card content area */
+	max-width: 315px; /* Set the maximum width for the line */
+	height: 1px;
+	background-color: rgba(217, 216, 212, 1);
+}
+
+.quote-container {
+	padding-left: 18px;
+	padding-right: 18px;
+	margin-bottom: 18px;
+}
+
+.quote-text {
+	color: rgba(30, 30, 31, 1);
+	font-family: Georgia-Italic;
+	font-size: 18px;
+	font-weight: 400;
+	font-style: italic;
+	text-align: center;
+	line-height: 24px;
+}

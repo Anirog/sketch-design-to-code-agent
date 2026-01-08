@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Card</title>
+  <link rel="stylesheet" href="profile-card-test.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  <div class="profile-card">
+    <div class="profile-card__inner">
+      <div class="profile-card__image-container">
+        <img src="images/profile-image.png" alt="Eliza Rowan" class="profile-card__image">
+      </div>
+      
+      <div class="profile-card__content">
+        <div class="profile-card__header">
+          <h1 class="profile-card__name">Eliza Rowan</h1>
+          <i class="ph ph-seal-check profile-card__verified"></i>
+        </div>
+        
+        <p class="profile-card__bio">UI Designer specialising in<br>accessible digital interfaces.</p>
+        
+        <div class="profile-card__stats">
+          <div class="profile-card__stat">
+            <i class="ph ph-users profile-card__stat-icon"></i>
+            <span class="profile-card__stat-value">312</span>
+          </div>
+          
+          <div class="profile-card__stat">
+            <i class="ph ph-heart profile-card__stat-icon"></i>
+            <span class="profile-card__stat-value">48</span>
+          </div>
+        </div>
+        
+        <button class="profile-card__follow-button">
+          <span class="profile-card__follow-icon">+</span>
+          <span class="profile-card__follow-text">Follow</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
