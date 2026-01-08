@@ -39,7 +39,7 @@
 Before you begin, make sure you have:
 - ✅ [Sketch](https://www.sketch.com/) (version 2025.2.4 or later)
 - ✅ An AI coding assistant (Claude Desktop, VS Code with GitHub Copilot, Cursor, or Codex)
-- ✅ This repository cloned locally (optional, for custom agent)
+- ✅ This repository cloned locally
 
 ---
 
