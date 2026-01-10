@@ -244,6 +244,38 @@ function extractOverrides(layer) {
 }
 
 /**
+ * Extract nested layers from a symbol instance using expandedLayers.
+ * This is useful for getting the actual visual structure and colors of symbol content.
+ */
+function extractExpandedLayers(symbolInstance) {
+  if (symbolInstance.type !== 'SymbolInstance') return null;
+  if (!symbolInstance.expandedLayers) return null;
+
+  function traverseExpanded(nestedLayer) {
+    const layerData = {
+      name: nestedLayer.name ?? null,
+      type: nestedLayer.type ?? null,
+      isNestedSymbol: nestedLayer.isNestedSymbol ?? false,
+    };
+
+    // Extract style information from nested layers
+    if (nestedLayer.style) {
+      layerData.fills = extractFills(nestedLayer.style);
+      layerData.borders = extractBorders(nestedLayer.style);
+    }
+
+    // Recursively extract child layers
+    if (nestedLayer.layers && nestedLayer.layers.length > 0) {
+      layerData.layers = nestedLayer.layers.map(traverseExpanded);
+    }
+
+    return layerData;
+  }
+
+  return symbolInstance.expandedLayers.map(traverseExpanded);
+}
+
+/**
  * Extract the font style name from a PostScript font name.
  * E.g., "Inter-SemiBold" → "SemiBold"
  */
@@ -459,6 +491,14 @@ function extractLayer(layer) {
     data.typography = typography;
   }
 
+  // For symbol instances, also extract expanded layers structure
+  if (layer.type === 'SymbolInstance') {
+    const expandedLayers = extractExpandedLayers(layer);
+    if (expandedLayers) {
+      data.expandedLayers = expandedLayers;
+    }
+  }
+
   return data;
 }
 
@@ -475,6 +515,45 @@ JSON.stringify({ layers: result }, null, 2);
 ```
 
 > Important: Do **not** introduce placeholder defaults like `"system"`, `400`, or `"#000000"` when Sketch does not supply a value. Missing properties must remain `null`.
+
+---
+
+## Extracting Colors from Symbols
+
+Symbol instances in Sketch have two ways to expose color information:
+
+### 1. Color Overrides
+When a symbol has editable color overrides, they appear in `layer.overrides` with `colorOverride: true` and include:
+- `property`: Usually `"color:fill-0"`, `"color:border-0"`, etc.
+- `value`: The actual color value (use `normalizeColor()`)
+- `swatchValue`: Color variable/swatch if used
+
+```js
+// Example: Extracting color overrides from a symbol
+symbolInstance.overrides.filter(o => o.colorOverride).map(o => ({
+  property: o.property, // "color:fill-0"
+  color: normalizeColor(o.value), // "#41d646"
+  swatch: o.swatchValue?.name // "Brand/Green"
+}));
+```
+
+### 2. Expanded Layers
+To access the actual nested layer structure and colors within a symbol, use `expandedLayers`:
+
+```js
+// Example: Traversing symbol's nested layers
+symbolInstance.expandedLayers.forEach(nestedLayer => {
+  if (nestedLayer.style?.fills) {
+    nestedLayer.style.fills.forEach(fill => {
+      console.log(normalizeColor(fill.color)); // Actual fill color
+    });
+  }
+});
+```
+
+**When to use each:**
+- Use **overrides** when you need editable/overridden values set on the instance
+- Use **expandedLayers** when you need the actual visual structure and default colors from the master symbol
 
 ---
 

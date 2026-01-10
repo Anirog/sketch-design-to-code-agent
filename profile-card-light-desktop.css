@@ -1,0 +1,257 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'SF Pro Text', sans-serif;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 694px;
+  background-color: #ffffff;
+  border-radius: 73px;
+  box-shadow: 0px 4px 19px 7px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card__main {
+  width: 100%;
+  max-width: 662px;
+  background-color: #ffffff;
+  border-radius: 162px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 30px 24px;
+}
+
+.profile-card__avatar {
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.profile-card__avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-card__info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.profile-card__info__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+}
+
+.profile-card__info__header__name {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: 0.21px;
+  color: #000000;
+}
+
+.profile-card__info__header__badge {
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+  color: #41d646;
+}
+
+.profile-card__info__stats {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+}
+
+.profile-card__info__stats__item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.profile-card__info__stats__item i {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: #8f8f8f;
+}
+
+.profile-card__info__stats__item__value {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.86px;
+  color: #000000;
+}
+
+.profile-card__bio {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* gap: 36px; */
+  padding-bottom: 24px;
+}
+
+.profile-card__bio__text {
+  flex: 1;
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 41px;
+  letter-spacing: 1.24px;
+  color: #767676;
+}
+
+.profile-card__bio__button {
+  min-width: 193px;
+  height: 80px;
+  background-color: #efefef;
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 9px 42px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.profile-card__bio__button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.profile-card__bio__button:active {
+  background-color: #d5d5d5;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  transform: translateY(1px);
+}
+
+.profile-card__bio__button__text {
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.24px;
+  color: #000000;
+}
+
+.profile-card__bio__button__icon {
+  font-size: 34px;
+  font-weight: 300;
+  color: #000000;
+}
+
+/* Responsive styles */
+@media (max-width: 695px) {
+  .profile-card {
+    max-width: 100vw;
+    border-radius: 32px;
+    padding: 8px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .profile-card__main {
+    max-width: 100vw;
+    border-radius: 48px;
+    padding: 16px 8px 16px;
+  }
+
+  .profile-card__avatar {
+    max-width: 180px;
+    margin-bottom: 16px;
+  }
+
+  .profile-card__info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .profile-card__info__header {
+    gap: 16px;
+  }
+
+  .profile-card__info__header__name {
+    font-size: 26px;
+  }
+
+  .profile-card__info__header__badge {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+  }
+
+  .profile-card__info__stats {
+    gap: 16px;
+  }
+
+  .profile-card__info__stats__item__value {
+    font-size: 18px;
+  }
+
+  .profile-card__bio {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding-bottom: 12px;
+  }
+
+  .profile-card__bio__text {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.8px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .profile-card__bio__button {
+    min-width: 120px;
+    height: 48px;
+    border-radius: 24px;
+    font-size: 18px;
+    padding: 6px 18px;
+    gap: 6px;
+  }
+
+  .profile-card__bio__button__text {
+    font-size: 18px;
+  }
+
+  .profile-card__bio__button__icon {
+    font-size: 22px;
+  }
+}
