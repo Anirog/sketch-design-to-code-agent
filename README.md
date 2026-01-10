@@ -26,7 +26,7 @@
 
 ### What You Get
 - Clean, semantic HTML structure
-- Production-ready CSS with accurate values
+- CSS generated from real Sketch values
 - Support for complex layouts, rounded corners, shadows, and more
 - Icon integration (Phosphor Icons or custom)
 
@@ -92,26 +92,36 @@ The custom agent provides specialized prompts and instructions optimized for des
 
 ### The Prompt ✨
 
-Once everything is set up, select a frame or symbol in Sketch and use this simple prompt in your AI assistant:
+Once everything is set up, select a frame or symbol in Sketch and run a prompt in your AI assistant.
+
+#### Option 1: Use a ready-made prompt file (recommended)
+
+This repo includes reusable prompt files in:
+
+- `.github/prompts`
+
+Pick the one you want, then run it in your AI client.
+
+#### Option 2: Use a simple prompt
 
 ```
-Get the selected frame in Sketch and make the HTML and CSS, For the icons use phosphor icons the CDN is `https://unpkg.com/@phosphor-icons/web`
+Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. For icons, use Phosphor Icons via the CDN: `https://unpkg.com/@phosphor-icons/web`.
 ```
 
-*Or use your preferred icon library and replace the CDN for it.*
+*Or use your preferred icon library and replace the CDN.*
 
 That's it! The AI will:
 1. 🔍 Extract design data from your selected Sketch frame
 2. 🏗️ Generate semantic HTML structure
-3. 🎨 Create accurate CSS with exact values from your design
-4. 📦 Deliver production-ready code files
+3. 🎨 Generate CSS based on the extracted values, then you can refine where needed
+4. 📦 Output HTML/CSS files you can iterate on and improve
 
 ### Example Workflow
 
 1. **Design in Sketch:** Create or select your UI component
 2. **Select the frame** you want to convert
 3. **Open your AI assistant** (VS Code Copilot, Claude Desktop, etc.)
-4. **Type the prompt:** "Get the selected frame in Sketch and make the HTML and CSS, For the icons use phosphor icons the CDN is `https://unpkg.com/@phosphor-icons/web`"
+4. **Type the prompt:** "Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. For icons, use Phosphor Icons via the CDN: `https://unpkg.com/@phosphor-icons/web`."
 5. **Review and refine:** The AI generates your code, which you can iterate on
 
 ---
