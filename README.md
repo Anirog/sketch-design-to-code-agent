@@ -205,6 +205,7 @@ See the Sketch document [design-to-code.sketch](design-to-code.sketch) I used fo
 - Fonts used in the examples:
   - Space Grotesk (https://fonts.google.com/specimen/Space+Grotesk)
   - Inter (https://fonts.google.com/specimen/Inter)
+  - Poppins (https://fonts.google.com/specimen/Poppins)
   - SF Pro (https://developer.apple.com/fonts/)
 
 ---
