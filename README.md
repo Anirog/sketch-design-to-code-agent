@@ -16,7 +16,7 @@
 
 ### Design Fidelity First
 - Extracts **real design values** from Sketch (colors, spacing, typography, shadows)
-- Maintains **pixel-perfect accuracy** from design to code
+- Builds HTML and CSS from real Sketch data, without visual guessing.
 - Respects your design system and component hierarchy
 
 ### Modern Tooling
