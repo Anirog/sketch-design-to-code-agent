@@ -122,7 +122,8 @@ That's it! The AI will:
 design-to-code-sketch/
 ├── .github/
 │   └── agents/
-│       └── Design to Code.agent.md    # Custom agent instructions
+│       └── Design to Code.agent.md     # Custom agent instructions
+|   └── prompts/                        # Example prompts   
 ├── images/                             # Image assets
 ├── *.html                              # Generated HTML files
 ├── *.css                               # Generated CSS files
