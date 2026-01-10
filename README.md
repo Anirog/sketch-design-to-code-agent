@@ -151,6 +151,7 @@ Check out the included example files to see the workflow in action:
 - 🎴 **Dark Profile Card** ([profile-card-dark.html](profile-card-dark.html), [profile-card-dark.css](profile-card-dark.css)) - Complex card with image, stats, and button
 - 🏷️ **Tag Pill** ([tag-pill.html](tag-pill.html)) - Small badge component
 - 🔘 **Button** ([button.html](button.html), [button.css](button.css)) - Interactive button with states
+- 🎩 **Fancy Gradient Card** ([fancy-gradient-card.html](fancy-gradient-card.html), [fancy-gradient-card.css](fancy-gradient-card.css)) - Card with gradient border
 
 See the original design exports from Sketch in the [images/designs](images/designs) folder
 
