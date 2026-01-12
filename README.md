@@ -219,6 +219,16 @@ See the Sketch document [design-to-code.sketch](design-to-code.sketch) I used fo
 
 ---
 
+## 🧪 Testing with other AI clients
+
+This project has mainly been tested with **VS Code + GitHub Copilot** and the **Codex CLI**.
+
+If you use **Cursor** or **Claude Desktop**, I’d really appreciate you giving it a quick try and sharing any feedback — especially around setup, rough edges, or anything unclear in the instructions. Even “it worked as expected” is a useful signal.
+
+If something doesn’t work, feel free to open an issue rather than trying to fix it yourself.
+
+---
+
 ## 🤝 Contributing
 
 Found a bug or have a suggestion? Feel free to:
