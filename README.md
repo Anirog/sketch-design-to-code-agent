@@ -71,7 +71,7 @@ The documentation includes step-by-step instructions for:
 - 🤖 **Claude Desktop** - Add server to Claude's configuration file
 - 💻 **VS Code** - Configure GitHub Copilot settings
 - 🎯 **Cursor** - Add to MCP settings
-- 📝 **Codex** - Configure MCP connections
+- 📝 **Codex CLI** - Configure MCP connections ([see our Codex guide](codex/README.md))
 
 ---
 
@@ -81,10 +81,15 @@ The custom agent provides specialized prompts and instructions optimized for des
 
 #### Official Agent Documentation
 
-- **VS Code (GitHub Copilot):** [Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-- **Cursor:** [Custom Rules](https://cursor.com/docs/context/rules)
-- **Claude Desktop:** [Custom Subagents](https://code.claude.com/docs/en/sub-agents#quickstart:-create-your-first-subagent)
-- **Codex:** [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
+- **VS Code (GitHub Copilot)**
+  - [Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
+- **Cursor**
+  - [Custom Rules](https://cursor.com/docs/context/rules)
+- **Claude Desktop**
+  - [Custom Subagents](https://code.claude.com/docs/en/sub-agents#quickstart:-create-your-first-subagent)
+- **Codex**
+  - [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
+  - [Custom Prompts](https://developers.openai.com/codex/custom-prompts)
 
 ---
 
@@ -133,7 +138,11 @@ design-to-code-sketch/
 ├── .github/
 │   └── agents/
 │       └── Design to Code.agent.md     # Custom agent instructions
-│   └── prompts/                        # Example prompts   
+│   └── prompts/                        # Example prompts
+├── codex/
+│   ├── AGENTS.md                       # Codex agent file
+│   ├── sketch.md                       # Codex custom prompt
+│   └── README.md                       # Codex setup instructions  
 ├── images/                             # Image assets
 ├── *.html                              # Generated HTML files
 ├── *.css                               # Generated CSS files
