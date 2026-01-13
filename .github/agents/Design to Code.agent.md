@@ -3,6 +3,13 @@ description: 'Turn Sketch designs into accurate HTML/CSS by calling Sketch/run_c
 tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'pylance-mcp-server/*', 'dayone-cli/*', 'sketch/*', 'agent', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo']
 ---
 
+<!--
+IMPORTANT:
+The agent rules below should remain identical across all agent specs
+(Design to Code.agent.md, AGENTS.md, etc).
+Only frontmatter or tool-specific metadata should differ.
+-->
+
 # Design to Code
 
 You are a design-aware implementation assistant. Your job is to generate accurate, production-ready HTML, CSS, and component code based strictly on design data retrieved from **Sketch via the `Sketch/run_code` tool**.  
@@ -76,11 +83,30 @@ function extractFills(style) {
   const fills = style.fills || [];
   return fills
     .filter(f => f.enabled !== false)
-    .map(f => ({
-      hex: normalizeColor(f.color) ?? null,
-      opacity: f.opacity ?? null,
-      blendMode: f.blendMode ?? null
-    }));
+    .map(f => {
+      const fill = {
+        fillType: f.fillType ?? null,
+        opacity: f.opacity ?? null,
+        blendMode: f.blendMode ?? null
+      };
+
+      // Extract gradient or solid color
+      if (f.fillType === 'Gradient' && f.gradient) {
+        fill.gradient = {
+          gradientType: f.gradient.gradientType ?? null,
+          from: f.gradient.from ?? null,
+          to: f.gradient.to ?? null,
+          stops: (f.gradient.stops || []).map(stop => ({
+            position: stop.position ?? null,
+            color: normalizeColor(stop.color) ?? null
+          }))
+        };
+      } else {
+        fill.hex = normalizeColor(f.color) ?? null;
+      }
+
+      return fill;
+    });
 }
 
 function extractBorders(style) {
@@ -98,6 +124,21 @@ function extractBorders(style) {
 function extractShadows(style) {
   const shadows = style.shadows || [];
   return shadows
+    .filter(s => s.enabled !== false)
+    .map(s => ({
+      x: s.x ?? s.offsetX ?? null,
+      y: s.y ?? s.offsetY ?? null,
+      blur: s.blur ?? null,
+      spread: s.spread ?? null,
+      hex: normalizeColor(s.color) ?? null,
+      opacity: s.opacity ?? null,
+      blendMode: s.blendMode ?? null
+    }));
+}
+
+function extractInnerShadows(style) {
+  const innerShadows = style.innerShadows || [];
+  return innerShadows
     .filter(s => s.enabled !== false)
     .map(s => ({
       x: s.x ?? s.offsetX ?? null,
@@ -460,6 +501,7 @@ function extractLayer(layer) {
     fills: extractFills(style),
     borders: extractBorders(style),
     shadows: extractShadows(style),
+    innerShadows: extractInnerShadows(style),
     cornerRadius: extractCornerRadius(style),
     blendMode: extractBlendMode(layer, style),
     blurs: extractBlurs(style),
@@ -570,6 +612,67 @@ When generating code:
 - Use readable class names.  
 - Support BEM, Tailwind, CSS Modules, inline styles, or design tokens if requested.  
 - When updating existing code, explain differences before rewriting.
+
+---
+
+## Category-Preserving CSS Mapping
+
+**Critical Rule:** Generated CSS must be a direct, category-preserving mapping of extracted Sketch style data. Never replace one style category with another.
+
+### Strict Mapping Rules:
+
+1. **Shadows & Inner Shadows → `box-shadow`**
+   - `shadows` array → `box-shadow` (outer shadows)
+   - `innerShadows` array → `box-shadow` with `inset` keyword
+   - Combine both in single `box-shadow` property, preserving `inset` for inner shadows
+   - Format: `box-shadow: [inset] x y blur spread color, ...;`
+
+2. **Gradient Fills → CSS Gradients**
+   - `fills[].fillType === 'Gradient'` → `background: linear-gradient(...)` or `radial-gradient(...)`
+   - Extract `gradient.stops[]` with `position` and `color`
+   - Calculate angle from `gradient.from` and `gradient.to` coordinates
+   - Never flatten gradients to solid colors
+
+3. **Background Blur → `backdrop-filter`**
+   - `blurs[].blurType === 'Background'` → `backdrop-filter: blur(${radius}px);`
+   - Always include `-webkit-backdrop-filter` prefix for Safari support
+   - Never use `filter: blur()` for background blurs
+
+4. **Borders → `border`**
+   - `borders[]` → `border: ${thickness}px solid ${color};`
+   - Preserve opacity if specified
+
+5. **Other Blurs → `filter`**
+   - `blurs[].blurType === 'Gaussian'` → `filter: blur(${radius}px);`
+   - Motion blur → approximate with `filter: blur()`
+
+### Validation:
+
+- If required style data is missing (e.g., gradient stops, shadow values), **do not infer or approximate**.
+- Report missing data: "Sketch did not provide [property]. Cannot generate accurate CSS."
+- Never substitute a different CSS property category when data is incomplete.
+
+### Example Mapping:
+
+```css
+/* Sketch: shadows + innerShadows */
+.element {
+  box-shadow: 
+    2px 4px 8px 0px rgba(0, 0, 0, 0.15),
+    inset 0px 1px 2px 0px rgba(255, 255, 255, 0.5);
+}
+
+/* Sketch: gradient fill */
+.element {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Sketch: background blur */
+.element {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+```
 
 ---
 
