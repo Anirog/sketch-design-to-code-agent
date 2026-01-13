@@ -14,37 +14,44 @@ cp codex/AGENTS.md /path/to/your/project/
 
 > **Note:** `AGENTS.md` must be in the project root directory where you run the Codex CLI.
 
-### Step 2: Install the Custom Prompt
+### Step 2: Install the Custom Prompts
 
-Copy `sketch.md` to your Codex prompts directory:
+Copy prompts from the `prompts/` directory to your Codex prompts directory:
 
 ```bash
 mkdir -p ~/.codex/prompts
-cp codex/sketch.md ~/.codex/prompts/
+cp codex/prompts/*.md ~/.codex/prompts/
 ```
 
 ## Usage
 
 1. **Open Sketch** and select a frame or component
 2. **Navigate to your project directory** (where `AGENTS.md` is located)
-3. **Run Codex CLI** and use the custom prompt:
+3. **Run Codex CLI** and use the custom prompts:
 
 ```bash
 codex
 > /prompts:sketch
 ```
 
+Or for component-specific prompt:
+
+```bash
+codex
+> /prompts:sketch-component
+```
+
 ## What's Included
 
 - **AGENTS.md** - Custom agent instructions for Codex CLI
-- **sketch.md** - Reusable prompt for design-to-code conversion
+- **prompts/** - Directory containing reusable prompts for design-to-code conversion
 
 ## Files
 
 | File | Purpose | Location |
 |------|---------|----------|
 | `AGENTS.md` | Agent configuration | Project root (copy here) |
-| `sketch.md` | Custom prompt | `~/.codex/prompts/` |
+| `prompts/*.md` | Custom prompts | `~/.codex/prompts/` |
 
 ## Example Workflow
 
@@ -53,9 +60,10 @@ codex
    cp codex/AGENTS.md /path/to/your/project/
    ```
 
-2. **Install the custom prompt:**
+2. **Install the custom prompts:**
    ```bash
-   cp codex/sketch.md ~/.codex/prompts/
+   mkdir -p ~/.codex/prompts
+   cp codex/prompts/*.md ~/.codex/prompts/
    ```
 
 3. **Select a frame in Sketch**
@@ -82,7 +90,7 @@ The agent will:
 - Check that the file is named exactly `AGENTS.md` (case-sensitive)
 
 **Custom prompt not found?**
-- Verify `sketch.md` is in `~/.codex/prompts/`
+- Verify prompt files are in `~/.codex/prompts/`
 - Restart Codex CLI to reload prompts
 
 **MCP connection issues?**

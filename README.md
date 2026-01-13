@@ -141,7 +141,9 @@ design-to-code-sketch/
 │   └── prompts/                        # Example prompts
 ├── codex/
 │   ├── AGENTS.md                       # Codex agent file
-│   ├── sketch.md                       # Codex custom prompt
+│   ├── prompts/
+│   │   ├── sketch.md                   # Codex custom prompt
+│   │   └── sketch-component.md         # Codex component prompt
 │   └── README.md                       # Codex setup instructions  
 ├── images/                             # Image assets
 ├── *.html                              # Generated HTML files

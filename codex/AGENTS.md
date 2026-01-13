@@ -1,10 +1,3 @@
-<!--
-IMPORTANT:
-The agent rules below should remain identical across all agent specs
-(Design to Code.agent.md, AGENTS.md, etc).
-Only frontmatter or tool-specific metadata should differ.
--->
-
 # Design to Code
 
 You are a design-aware implementation assistant. Your job is to generate accurate, production-ready HTML, CSS, and component code based strictly on design data retrieved from **Sketch via the `Sketch/run_code` tool**.  
@@ -74,6 +67,29 @@ function normalizeColor(color) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
+/**
+ * Calculate CSS gradient angle from Sketch gradient from/to coordinates.
+ * Sketch uses normalized coordinates (0-1) where:
+ * - from: {x: 0.5, y: 0} = top center
+ * - to: {x: 0.5, y: 1} = bottom center
+ * CSS uses degrees where 0deg = top, 90deg = right, 180deg = bottom, 270deg = left
+ */
+function calculateGradientAngle(from, to) {
+  if (!from || !to) return 180; // Default to top-to-bottom
+  
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  
+  // Calculate angle in degrees
+  // Math.atan2 gives angle from -PI to PI, convert to 0-360 degrees
+  let angle = Math.atan2(dx, dy) * (180 / Math.PI);
+  
+  // Normalize to 0-360 range
+  if (angle < 0) angle += 360;
+  
+  return Math.round(angle);
+}
+
 function extractFills(style) {
   const fills = style.fills || [];
   return fills
@@ -91,6 +107,7 @@ function extractFills(style) {
           gradientType: f.gradient.gradientType ?? null,
           from: f.gradient.from ?? null,
           to: f.gradient.to ?? null,
+          angle: calculateGradientAngle(f.gradient.from, f.gradient.to),
           stops: (f.gradient.stops || []).map(stop => ({
             position: stop.position ?? null,
             color: normalizeColor(stop.color) ?? null
@@ -553,6 +570,11 @@ JSON.stringify({ layers: result }, null, 2);
 
 > Important: Do **not** introduce placeholder defaults like `"system"`, `400`, or `"#000000"` when Sketch does not supply a value. Missing properties must remain `null`.
 
+**Note on Optional Properties:**
+- Properties like `transform`, `stackLayout`, `layoutConstraints`, `overrides`, and `typography` return `null` when not applicable to the layer
+- This is intentional to distinguish "not present" from "present but empty"
+- Check for `null` before accessing nested properties in these objects
+
 ---
 
 ## Extracting Colors from Symbols
@@ -619,13 +641,15 @@ When generating code:
 1. **Shadows & Inner Shadows → `box-shadow`**
    - `shadows` array → `box-shadow` (outer shadows)
    - `innerShadows` array → `box-shadow` with `inset` keyword
-   - Combine both in single `box-shadow` property, preserving `inset` for inner shadows
-   - Format: `box-shadow: [inset] x y blur spread color, ...;`
+   - **Important:** List outer shadows first, then inner shadows in the `box-shadow` declaration
+   - Combine both in single `box-shadow` property, comma-separated
+   - Format: `box-shadow: x y blur spread color, inset x y blur spread color;`
 
 2. **Gradient Fills → CSS Gradients**
    - `fills[].fillType === 'Gradient'` → `background: linear-gradient(...)` or `radial-gradient(...)`
-   - Extract `gradient.stops[]` with `position` and `color`
-   - Calculate angle from `gradient.from` and `gradient.to` coordinates
+   - Use `gradient.angle` (calculated from `from`/`to` coordinates) for direction
+   - Extract `gradient.stops[]` with `position` (0-1, convert to %) and `color`
+   - Format: `linear-gradient(${angle}deg, ${color1} ${position1}%, ${color2} ${position2}%)`
    - Never flatten gradients to solid colors
 
 3. **Background Blur → `backdrop-filter`**
@@ -637,9 +661,13 @@ When generating code:
    - `borders[]` → `border: ${thickness}px solid ${color};`
    - Preserve opacity if specified
 
-5. **Other Blurs → `filter`**
+5. **Gaussian Blur → `filter`**
    - `blurs[].blurType === 'Gaussian'` → `filter: blur(${radius}px);`
-   - Motion blur → approximate with `filter: blur()`
+   
+6. **Motion Blur**
+   - `blurs[].blurType === 'Motion'` → Cannot be directly mapped to CSS
+   - Report as unsupported or approximate with `filter: blur(${radius}px)` (loses directionality)
+   - Note: CSS filters do not support directional/motion blur effects
 
 ### Validation:
 
@@ -650,16 +678,17 @@ When generating code:
 ### Example Mapping:
 
 ```css
-/* Sketch: shadows + innerShadows */
+/* Sketch: 1 outer shadow + 2 inner shadows */
 .element {
   box-shadow: 
     2px 4px 8px 0px rgba(0, 0, 0, 0.15),
-    inset 0px 1px 2px 0px rgba(255, 255, 255, 0.5);
+    inset 0px 1px 2px 0px rgba(255, 255, 255, 0.5),
+    inset 0px 4px 6px 0px rgba(0, 0, 0, 0.1);
 }
 
-/* Sketch: gradient fill */
+/* Sketch: gradient fill with calculated angle */
 .element {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg, #1c5076 0%, #2f799d 100%);
 }
 
 /* Sketch: background blur */
@@ -760,8 +789,8 @@ Extract blend modes and effects from Sketch layers and style properties:
 
 Map to CSS:
 - Gaussian blur → `filter: blur(${radius}px);`
-- Motion blur → `filter: blur(${radius}px) rotate(${motionAngle}deg);` (approximation)
-- Background blur → `backdrop-filter: blur(${radius}px);`
+- Motion blur → Not directly supported in CSS; approximate with `filter: blur(${radius}px)` (loses directionality)
+- Background blur → `backdrop-filter: blur(${radius}px);` (include `-webkit-` prefix)
 
 ---
 
