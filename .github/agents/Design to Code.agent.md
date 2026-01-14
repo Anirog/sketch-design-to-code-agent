@@ -130,12 +130,31 @@ function extractBorders(style) {
   const borders = style.borders || [];
   return borders
     .filter(b => b.enabled !== false)
-    .map(b => ({
-      thickness: b.thickness ?? null,
-      hex: normalizeColor(b.color) ?? null,
-      opacity: b.opacity ?? null,
-      blendMode: b.blendMode ?? null
-    }));
+    .map(b => {
+      const border = {
+        thickness: b.thickness ?? null,
+        opacity: b.opacity ?? null,
+        blendMode: b.blendMode ?? null
+      };
+
+      // Extract gradient or solid color (borders can have gradients like fills)
+      if (b.fillType === 'Gradient' && b.gradient) {
+        border.gradient = {
+          gradientType: b.gradient.gradientType ?? null,
+          from: b.gradient.from ?? null,
+          to: b.gradient.to ?? null,
+          angle: calculateGradientAngle(b.gradient.from, b.gradient.to),
+          stops: (b.gradient.stops || []).map(stop => ({
+            position: stop.position ?? null,
+            color: normalizeColor(stop.color) ?? null
+          }))
+        };
+      } else {
+        border.hex = normalizeColor(b.color) ?? null;
+      }
+
+      return border;
+    });
 }
 
 function extractShadows(style) {
@@ -659,12 +678,33 @@ When generating code:
 
 3. **Background Blur → `backdrop-filter`**
    - `blurs[].blurType === 'Background'` → `backdrop-filter: blur(${radius}px);`
-   - Always include `-webkit-backdrop-filter` prefix for Safari support
+   - Always include both `-webkit-backdrop-filter` (prefixed) and `backdrop-filter` (standard)
+   - Place vendor prefix first, then standard property
    - Never use `filter: blur()` for background blurs
 
-4. **Borders → `border`**
-   - `borders[]` → `border: ${thickness}px solid ${color};`
+4. **Borders → `border` or `border-image`**
+   - Solid borders: `borders[].hex` → `border: ${thickness}px solid ${color};`
+   - Gradient borders: `borders[].gradient` → CSS workaround required:
+     - **Option 1:** `border-image: linear-gradient(${angle}deg, ${stops}) 1;` 
+       - Note: Doesn't respect `border-radius` - corners will be sharp
+     - **Option 2:** Use pseudo-element with gradient background and padding
+       - Recommended for maintaining border-radius
+     - **Option 3:** Use nested element with gradient background showing through padding
+   - When gradient border is detected, report the limitation and suggest the best approach
    - Preserve opacity if specified
+
+### Gradient Border Pragmatism
+
+While technically extracting and implementing gradient borders is correct, consider simplification when:
+
+1. **Subtle gradients on small elements**: When border gradient colors are similar (e.g., #ebebeb → #fbfbfb) and the element is small (< 100px), the gradient may be imperceptible
+2. **Interactive elements**: Buttons and controls benefit from crisp, consistent borders that don't create rendering artifacts
+3. **Visual fidelity over technical accuracy**: If a simple `border: 1px solid rgba(255, 255, 255, 0.3)` achieves better visual match to the design intent, prefer it
+
+When simplifying:
+- Document the decision in code comments
+- Use semi-transparent colors that blend with the background
+- Test the visual result against the Sketch design
 
 5. **Gaussian Blur → `filter`**
    - `blurs[].blurType === 'Gaussian'` → `filter: blur(${radius}px);`
@@ -679,6 +719,14 @@ When generating code:
 - If required style data is missing (e.g., gradient stops, shadow values), **do not infer or approximate**.
 - Report missing data: "Sketch did not provide [property]. Cannot generate accurate CSS."
 - Never substitute a different CSS property category when data is incomplete.
+
+### Vendor Prefixes:
+
+When using vendor-prefixed CSS properties, always include both the prefixed and standard versions:
+
+- **Order**: Place vendor prefix first, then standard property
+- **Common cases**: `-webkit-mask` + `mask`, `-webkit-backdrop-filter` + `backdrop-filter`, `-webkit-mask-composite` (keep only this one as `mask-composite` handles the standard)
+- **Why**: Ensures maximum browser compatibility while future-proofing for browsers that support the standard syntax
 
 ### Example Mapping:
 
@@ -700,6 +748,28 @@ When generating code:
 .element {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+}
+
+/* Sketch: gradient border (with border-radius workaround using pseudo-element) */
+.element {
+  position: relative;
+  background: #d6defd;
+  border-radius: 55px;
+  padding: 32px;
+}
+
+.element::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 55px;
+  padding: 29px;
+  background: linear-gradient(180deg, #ff0000 0%, #00ff00 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 ```
 

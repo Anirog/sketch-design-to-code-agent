@@ -24,13 +24,28 @@ body {
   width: 100%;
   min-height: 600px;
   background-color: #d6defd;
-  border: 29px solid #e31010;
   border-radius: 55px;
   box-shadow: 0px 32px 42px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 32px 50px 80px;
+}
+
+/* Gradient border using pseudo-element */
+.liquid-glass-card__content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 55px;
+  padding: 29px;
+  background: linear-gradient(43deg, #ebebeb 0%, #fbfbfb 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .liquid-glass-card__avatar {
@@ -47,20 +62,22 @@ body {
 
 .liquid-glass-card__header {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   justify-content: flex-end;
   gap: 13px;
+  margin-top: 20px;
   margin-bottom: auto;
 }
 
 .liquid-glass-card__social-button,
 .liquid-glass-card__more-button {
+  position: relative;
   width: 82px;
   height: 82px;
   flex-shrink: 0;
   background: linear-gradient(0deg, #1c5076 0%, #2f799d 100%);
-  border: 1px solid #979797;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -95,7 +112,7 @@ body {
 
 .liquid-glass-card__info {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   margin-top: auto;
   margin-bottom: 20px;
 }
@@ -122,13 +139,13 @@ body {
 
 .liquid-glass-card__follow-button {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 209px;
   height: 80px;
   flex-shrink: 0;
   align-self: flex-end;
   background: linear-gradient(0deg, #211c1d 0%, #362f2f 100%);
-  border: 1px solid #979797;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 40px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -157,10 +174,14 @@ body {
 /* Responsive adjustments */
 @media (max-width: 700px) {
   .liquid-glass-card__content {
-    border-width: 15px;
     border-radius: 35px;
     padding: 20px 25px 40px;
     min-height: 500px;
+  }
+
+  .liquid-glass-card__content::before {
+    border-radius: 35px;
+    padding: 15px;
   }
 
   .liquid-glass-card__header {
@@ -199,9 +220,13 @@ body {
 
 @media (max-width: 480px) {
   .liquid-glass-card__content {
-    border-width: 10px;
     border-radius: 25px;
     padding: 15px 20px 30px;
+  }
+
+  .liquid-glass-card__content::before {
+    border-radius: 25px;
+    padding: 10px;
   }
 
   .liquid-glass-card__name {
