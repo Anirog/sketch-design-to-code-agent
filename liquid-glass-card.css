@@ -1,0 +1,222 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.liquid-glass-card {
+  max-width: 618px;
+  width: 100%;
+}
+
+.liquid-glass-card__content {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  background-color: #d6defd;
+  border: 29px solid #e31010;
+  border-radius: 55px;
+  box-shadow: 0px 32px 42px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 50px 80px;
+}
+
+.liquid-glass-card__avatar {
+  position: absolute;
+  top: -5px;
+  left: -60px;
+  width: 691px;
+  height: 1038px;
+  object-fit: cover;
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.liquid-glass-card__header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 13px;
+  margin-bottom: auto;
+}
+
+.liquid-glass-card__social-button,
+.liquid-glass-card__more-button {
+  width: 82px;
+  height: 82px;
+  flex-shrink: 0;
+  background: linear-gradient(0deg, #1c5076 0%, #2f799d 100%);
+  border: 1px solid #979797;
+  border-radius: 50%;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    inset 0px -3px 12px 0px rgba(147, 176, 234, 0.5),
+    inset 0px 20px 60px 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-card__social-button:hover,
+.liquid-glass-card__more-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0px -3px 12px 0px rgba(147, 176, 234, 0.7),
+    inset 0px 20px 60px 0px rgba(0, 0, 0, 0.2);
+}
+
+.liquid-glass-card__social-button:active,
+.liquid-glass-card__more-button:active {
+  transform: translateY(0);
+}
+
+.liquid-glass-card__social-button i,
+.liquid-glass-card__more-button i {
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.liquid-glass-card__info {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.liquid-glass-card__name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 63px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2.34px;
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+.liquid-glass-card__bio {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 31px;
+  font-weight: 300;
+  line-height: 42px;
+  letter-spacing: 1.05px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.liquid-glass-card__follow-button {
+  position: relative;
+  z-index: 2;
+  width: 209px;
+  height: 80px;
+  flex-shrink: 0;
+  align-self: flex-end;
+  background: linear-gradient(0deg, #211c1d 0%, #362f2f 100%);
+  border: 1px solid #979797;
+  border-radius: 40px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    inset 0px -3px 12px 0px rgba(147, 176, 234, 0.5),
+    inset 0px 20px 60px 0px rgba(0, 0, 0, 0.3);
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-card__follow-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0px -3px 12px 0px rgba(147, 176, 234, 0.7),
+    inset 0px 20px 60px 0px rgba(0, 0, 0, 0.2);
+}
+
+.liquid-glass-card__follow-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .liquid-glass-card__content {
+    border-width: 15px;
+    border-radius: 35px;
+    padding: 20px 25px 40px;
+    min-height: 500px;
+  }
+
+  .liquid-glass-card__header {
+    gap: 8px;
+  }
+
+  .liquid-glass-card__social-button,
+  .liquid-glass-card__more-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .liquid-glass-card__social-button i,
+  .liquid-glass-card__more-button i {
+    font-size: 24px;
+  }
+
+  .liquid-glass-card__name {
+    font-size: 48px;
+    letter-spacing: 1.8px;
+    margin-bottom: 12px;
+  }
+
+  .liquid-glass-card__bio {
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: 0.8px;
+  }
+
+  .liquid-glass-card__follow-button {
+    width: 160px;
+    height: 60px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .liquid-glass-card__content {
+    border-width: 10px;
+    border-radius: 25px;
+    padding: 15px 20px 30px;
+  }
+
+  .liquid-glass-card__name {
+    font-size: 36px;
+    letter-spacing: 1.4px;
+  }
+
+  .liquid-glass-card__bio {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .liquid-glass-card__follow-button {
+    width: 140px;
+    height: 50px;
+    font-size: 24px;
+  }
+}
