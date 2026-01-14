@@ -9,9 +9,12 @@ html {
 }
 
 body {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	min-height: 100vh;
 	background-color: rgba(138, 180, 248, 1);
 	font-family: "Inter", sans-serif;
-	padding-top: 40px;
 }
 
 .card-container {
