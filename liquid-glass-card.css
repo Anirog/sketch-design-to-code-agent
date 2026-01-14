@@ -29,7 +29,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 32px 50px 80px;
+  padding: 32px 50px 55px;
 }
 
 /* Gradient border using pseudo-element */
@@ -49,15 +49,40 @@ body {
 }
 
 .liquid-glass-card__avatar {
+  /* Fill the card area so no background-color shows through on large screens */
   position: absolute;
-  top: -5px;
-  left: -60px;
-  width: 691px;
-  height: 1038px;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  filter: blur(10px);
+  object-position: center top;
   z-index: 0;
   pointer-events: none;
+}
+
+.liquid-glass-card__content::after {
+  /* Bottom full-width glass overlay: applies blur and a soft tint, with
+     a mask so the effect fades smoothly upward instead of a hard cut. */
+  content: '';
+  position: absolute;
+  /* Sit inside the decorative gradient border (padding on ::before = 29px),
+     so the blur only affects the image and inner content and not the white
+     outer border. */
+  left: 29px;
+  right: 29px;
+  bottom: 29px;
+  height: 48%; /* covers roughly the lower half where info + button live */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  /* Mask fades the overlay alpha to transparent toward the top */
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 30%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 30%, rgba(0,0,0,0) 100%);
+  z-index: 2;
+  pointer-events: none;
+  /* Inner corner radius = outer radius (55px) - padding (29px) = 26px */
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
 }
 
 .liquid-glass-card__header {
@@ -113,8 +138,19 @@ body {
 .liquid-glass-card__info {
   position: relative;
   z-index: 3;
+  margin: 0; /* spacing is handled by .liquid-glass-card__meta */
+}
+
+.liquid-glass-card__meta {
+  position: relative;
+  z-index: 3;
   margin-top: auto;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 18px;
+  padding-left: 18px;
+  border-radius: 12px;
 }
 
 .liquid-glass-card__name {
@@ -144,11 +180,11 @@ body {
   height: 80px;
   flex-shrink: 0;
   align-self: flex-end;
-  background: linear-gradient(0deg, #211c1d 0%, #362f2f 100%);
+  /* semi-transparent gradient; blur provided by parent .liquid-glass-card__meta */
+  background: linear-gradient(0deg, rgba(33,28,29,0.55) 0%, rgba(54,47,47,0.55) 100%);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 40px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  /* remove per-button backdrop to avoid double-blur */
   box-shadow: 
     inset 0px -3px 12px 0px rgba(147, 176, 234, 0.5),
     inset 0px 20px 60px 0px rgba(0, 0, 0, 0.3);
@@ -182,6 +218,15 @@ body {
   .liquid-glass-card__content::before {
     border-radius: 35px;
     padding: 15px;
+  }
+
+  /* Ensure inner blur overlay sits inside the decorative border on smaller screens */
+  .liquid-glass-card__content::after {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-bottom-left-radius: 20px; /* 35 - 15 = 20 */
+    border-bottom-right-radius: 20px;
   }
 
   .liquid-glass-card__header {
@@ -219,6 +264,11 @@ body {
 }
 
 @media (max-width: 480px) {
+
+    .liquid-glass-card__header {
+        margin-top: 8px;
+    }
+
   .liquid-glass-card__content {
     border-radius: 25px;
     padding: 15px 20px 30px;
@@ -227,6 +277,15 @@ body {
   .liquid-glass-card__content::before {
     border-radius: 25px;
     padding: 10px;
+  }
+
+  /* Small screens: inset overlay to avoid covering card border */
+  .liquid-glass-card__content::after {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-bottom-left-radius: 15px; /* 25 - 10 = 15 */
+    border-bottom-right-radius: 15px;
   }
 
   .liquid-glass-card__name {
