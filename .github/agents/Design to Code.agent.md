@@ -640,6 +640,87 @@ symbolInstance.expandedLayers.forEach(nestedLayer => {
 
 ---
 
+## Extracting Icons and Content from Symbols
+
+**Critical Rule:** Never leave placeholder comments for symbol instances. Always extract actual content.
+
+When a symbol instance is encountered:
+
+1. **Always call `expandedLayers`** to inspect the symbol's contents
+2. **Identify icon layers** by their names (e.g., `ph ph-github-logo`, `icon-star`)
+3. **Map to HTML** using the appropriate icon library (Phosphor Icons, FontAwesome, etc.)
+4. **Extract positioning and styling** for proper layout
+
+### Example: Extracting Social Icons from Symbol
+
+```js
+const sketch = require('sketch');
+
+function traverseLayer(layer) {
+  const result = {
+    name: layer.name,
+    type: layer.type,
+    frame: layer.frame
+  };
+  
+  if (layer.layers && layer.layers.length > 0) {
+    result.children = layer.layers.map(child => traverseLayer(child));
+  }
+  
+  return result;
+}
+
+// Find symbol instance
+const symbolInstance = selection.find(l => l.type === 'SymbolInstance');
+
+// Extract expanded layers structure
+if (symbolInstance && symbolInstance.expandedLayers) {
+  const content = symbolInstance.expandedLayers.map(layer => traverseLayer(layer));
+  console.log(JSON.stringify(content, null, 2));
+}
+```
+
+### Identifying Icon Names
+
+Icon layers typically follow naming patterns:
+- **Phosphor Icons:** `ph ph-icon-name` → `<i class="ph ph-icon-name"></i>`
+- **FontAwesome:** `fa fa-icon-name` → `<i class="fa fa-icon-name"></i>`
+- **Custom icons:** `icon-name` → May need SVG extraction or custom handling
+
+### HTML Generation Rules
+
+When generating HTML for symbols containing icons:
+
+✅ **Correct:**
+```html
+<div class="social-links">
+  <a href="#" class="social-links__icon" aria-label="GitHub">
+    <i class="ph ph-github-logo"></i>
+  </a>
+  <a href="#" class="social-links__icon" aria-label="Twitter">
+    <i class="ph ph-twitter-logo"></i>
+  </a>
+</div>
+```
+
+❌ **Wrong:**
+```html
+<div class="social-links">
+  <!-- Social links placeholder -->
+</div>
+```
+
+### When Symbol Content Cannot Be Extracted
+
+Only use a comment placeholder if:
+1. You attempted to extract `expandedLayers` but it returned `null`
+2. The symbol contains custom artwork that cannot be mapped to icons/HTML
+3. You report to the user: "Symbol [name] contains custom artwork that requires manual implementation"
+
+**Never** leave a placeholder without attempting extraction first.
+
+---
+
 ## Using Sketch Data
 
 After receiving the JSON from `Sketch/run_code`, generate HTML, CSS, or component code using **only** the returned values.
