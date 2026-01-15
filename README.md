@@ -145,7 +145,7 @@ That's it! The AI will:
 3. **Open your AI assistant** (VS Code Copilot, Claude Desktop, etc.)
 4. **Run the Sketch Layer Names prompt:** Analyze and optimize layer names for better semantic quality
 5. **Run the appropriate code generation prompt:**
-   - For simple components: Use [.github/prompts/Design to Code.prompt.md](.github/prompts/Design%20to%20Code.prompt.md)
+   - For simple components: Use [.github/prompts/Design to Code.prompt.md](.github/prompts/design%20to%20code.prompt.md)
    - For complex layouts: Use [.github/prompts/Responsive Design to Code.prompt.md](.github/prompts/Responsive%20Design%20to%20Code.prompt.md)
 6. **Review and refine:** The AI generates your HTML/CSS, which you can iterate on
 
