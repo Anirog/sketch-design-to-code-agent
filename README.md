@@ -114,7 +114,7 @@ This step ensures layer names translate seamlessly into semantic HTML elements a
 After layer names are optimized, choose the appropriate prompt:
 
 **For simple components or symbols:**
-- Use **Design to Code** prompt [.github/prompts/Design to Code.prompt.md](.github/prompts/Design%20to%20Code.prompt.md)
+- Use **Design to Code** prompt [.github/prompts/Design to Code.prompt.md](.github/prompts/design%20to%20code.prompt.md)
 - Best for: buttons, icons, single UI elements, simple layouts
 
 **For complex or full-page designs:**
