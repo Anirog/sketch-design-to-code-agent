@@ -139,12 +139,6 @@ design-to-code-sketch/
 │   └── agents/
 │       └── Design to Code.agent.md     # Custom agent instructions
 │   └── prompts/                        # Example prompts
-├── codex/
-│   ├── AGENTS.md                       # Codex agent file
-│   ├── prompts/
-│   │   ├── sketch.md                   # Codex custom prompt
-│   │   └── sketch-component.md         # Codex component prompt
-│   └── README.md                       # Codex setup instructions  
 ├── images/                             # Image assets
 ├── *.html                              # Generated HTML files
 ├── *.css                               # Generated CSS files
@@ -155,18 +149,9 @@ design-to-code-sketch/
 
 ## Examples
 
-Check out the included example files to see the workflow in action:
+Check out the included example files (`*.html`, `*.css`) in this repository to see the workflow in action. Each example demonstrates how Sketch designs are transformed into semantic HTML and CSS using this workflow.
 
-- 🃏 **Basic Card** [featured-card.html](featured-card.html), [featured-card.css](featured-card.css) - Simple card component
-- 🌞 **Light Profile Card** [profile-card-light.html](profile-card-light.html), [profile-card-light.css](profile-card-light.css) - Clean card with image, stats, and button
-- 🎴 **Dark Profile Card** [profile-card-dark.html](profile-card-dark.html), [profile-card-dark.css](profile-card-dark.css) - Complex card with image, stats, and button
-- 🏷️ **Tag Pill** [tag-pill.html](tag-pill.html), [tag-pill.css](tag-pill.css) - Small badge component
-- 🔘 **Button** [button.html](button.html), [button.css](button.css) - Interactive button with states
-- 🎩 **Fancy Gradient Card** [fancy-gradient-card.html](fancy-gradient-card.html), [fancy-gradient-card.css](fancy-gradient-card.css) - Card with gradient border
-- 🔘 **Round Liquid Glass Button** [round-liquid-glass-button.html](round-liquid-glass-button.html), [round-liquid-glass-button.css](round-liquid-glass-button.css) - Button with liquid glass effect
-- 💧 **Liquid Glass Card** [liquid-glass-card.html](liquid-glass-card.html), [liquid-glass-card.css](liquid-glass-card.css) - Card with liquid glass effect
-
-See the original design exports from Sketch in the [images/designs](images/designs) folder
+See the original design exports from Sketch in the [images/designs](images/designs) folder.
 
 See the Sketch document [design-to-code.sketch](design-to-code.sketch) I used for this project.
 
