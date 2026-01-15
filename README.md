@@ -95,25 +95,40 @@ The custom agent provides specialized prompts and instructions optimized for des
 
 ## Usage
 
-### The Prompt ✨
+### Recommended Workflow 🎯
 
-Once everything is set up, select a frame or symbol in Sketch and run a prompt in your AI assistant.
+For best results, follow this two-step workflow:
 
-#### Option 1: Use a ready-made prompt file (recommended)
+#### Step 1: Analyze and Improve Layer Names
+
+Start with the **Sketch Layer Names** prompt: `.github/prompts/Sketch Layer Names.prompt.md`
+- Analyzes all layer names in your selected frame
+- Checks for semantic quality and HTML/CSS compatibility
+- Evaluates against BEM methodology best practices
+- Automatically renames layers for better code generation
+
+This step ensures layer names translate seamlessly into semantic HTML elements and maintainable CSS class names, which significantly improves the accuracy of the generated code.
+
+#### Step 2: Generate Code
+
+After layer names are optimized, choose the appropriate prompt:
+
+**For simple components or symbols:**
+- Use **Design to Code** prompt [.github/prompts/Design to Code.prompt.md](.github/prompts/Design to Code.prompt.md)
+- Best for: buttons, icons, single UI elements, simple layouts
+
+**For complex or full-page designs:**
+- Use **Responsive Design to Code** prompt (`.github/prompts/Responsive Design to Code.prompt.md`)
+- Best for: cards, forms, navigation, dashboard layouts, full pages
+- Automatically generates responsive CSS with proper breakpoints
+
+---
+
+#### Use the prompt files ⚡️
 
 This repo includes reusable prompt files in:
 
-- `.github/prompts`
-
-Pick the one you want, then run it in your AI client.
-
-#### Option 2: Use a simple prompt
-
-```
-Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. For icons, use Phosphor Icons via the CDN: `https://unpkg.com/@phosphor-icons/web`.
-```
-
-*Or use your preferred icon library and replace the CDN.*
+[github/prompts](.github/prompts)
 
 That's it! The AI will:
 1. 🔍 Extract design data from your selected Sketch frame
@@ -126,8 +141,11 @@ That's it! The AI will:
 1. **Design in Sketch:** Create or select your UI component
 2. **Select the frame** you want to convert
 3. **Open your AI assistant** (VS Code Copilot, Claude Desktop, etc.)
-4. **Type the prompt:** "Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. For icons, use Phosphor Icons via the CDN: `https://unpkg.com/@phosphor-icons/web`."
-5. **Review and refine:** The AI generates your code, which you can iterate on
+4. **Run the Sketch Layer Names prompt:** Analyze and optimize layer names for better semantic quality
+5. **Run the appropriate code generation prompt:**
+   - For simple components: Use "Design to Code.prompt.md"
+   - For complex layouts: Use "Responsive Design to Code.prompt.md"
+6. **Review and refine:** The AI generates your HTML/CSS, which you can iterate on
 
 ---
 
