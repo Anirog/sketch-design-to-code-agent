@@ -71,7 +71,7 @@ The documentation includes step-by-step instructions for:
 - 🤖 **Claude Desktop** - Add server to Claude's configuration file
 - 💻 **VS Code** - Configure GitHub Copilot settings
 - 🎯 **Cursor** - Add to MCP settings
-- 📝 **Codex CLI** - Configure MCP connections ([see our Codex guide](codex/README.md))
+- 📝 **Codex CLI** - Configure MCP connections
 
 ---
 
