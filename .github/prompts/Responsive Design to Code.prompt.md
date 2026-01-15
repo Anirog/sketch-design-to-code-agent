@@ -1,7 +1,11 @@
 ---
 agent: Design to Code
 ---
-Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. For icons, use Phosphor Icons via the CDN: `https://unpkg.com/@phosphor-icons/web`.
+Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. 
+
+If the selected frame is nested inside a parent frame, also extract the parent frame to get context like background colors and overall page styling.
+
+For the icons use phosphor icons the CDN is `https://unpkg.com/@phosphor-icons/web`
 
 After generating the first pass, immediately refactor the output to be responsive, while keeping the same visual style and structure:
 

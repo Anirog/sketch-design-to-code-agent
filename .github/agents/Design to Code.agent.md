@@ -988,3 +988,20 @@ When extracting Symbol instances with overrides, generate modifier classes for e
   - **Clarifications needed**
 
 Your goal is perfect fidelity to the Sketch design.
+
+---
+
+## Missing Context Protocol
+
+When generating code and you don't have required design data:
+
+1. **Don't guess or use defaults**: Never invent colors, typography, spacing, or any design values
+2. **Extract parent context automatically**: When background colors, page-level styling, or layout context is needed but not present in the selected layer:
+   - Immediately extract the parent frame/artboard
+   - Report what you're doing: "No background color in selected layer. Extracting parent frame for page context..."
+3. **Report if extraction fails**: Only after attempting to extract parent context, report if data is still missing: "Extracted [layer] and parent [frame], but [property] is not defined in Sketch."
+
+**Example:** 
+- User selects `contact-form` component but you need background color
+- ✅ **Correct**: Automatically extract parent `contact-page` frame → get background: `#202124`
+- ❌ **Wrong**: Invent gradient `linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)` or ask "Should I extract the parent?"
