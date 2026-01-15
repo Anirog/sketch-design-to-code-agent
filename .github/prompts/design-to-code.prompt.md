@@ -1,5 +1,5 @@
 ---
-agent: Design to Code
+agent: design-to-code
 ---
 Get the selected frame in Sketch and generate the HTML and CSS using only values extracted from Sketch. 
 

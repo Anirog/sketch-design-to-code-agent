@@ -101,7 +101,7 @@ For best results, follow this two-step workflow:
 
 #### Step 1: Analyze and Improve Layer Names
 
-Start with the **Sketch Layer Names** prompt: [.github/prompts/Sketch Layer Names.prompt.md](.github/prompts/Sketch%20Layer%20Names.prompt.md) 
+Start with the **Sketch Layer Names** prompt: [.github/prompts/sketch-layer-names.prompt.md](.github/prompts/sketch-layer-names.prompt.md) 
 - Analyzes all layer names in your selected frame
 - Checks for semantic quality and HTML/CSS compatibility
 - Evaluates against BEM methodology best practices
@@ -114,11 +114,11 @@ This step ensures layer names translate seamlessly into semantic HTML elements a
 After layer names are optimized, choose the appropriate prompt:
 
 **For simple components or symbols:**
-- Use **Design to Code** prompt [.github/prompts/Design to Code.prompt.md](.github/prompts/design%20to%20code.prompt.md)
+- Use **Design to Code** prompt [.github/prompts/design-to-code.prompt.md](.github/prompts/design-to-code.prompt.md)
 - Best for: buttons, icons, single UI elements, simple layouts
 
 **For complex or full-page designs:**
-- Use **Responsive Design to Code** prompt [.github/prompts/Responsive Design to Code.prompt.md](.github/prompts/Responsive%20Design%20to%20Code.prompt.md)
+- Use **Responsive Design to Code** prompt [.github/prompts/responsive-design-to-code.prompt.md](.github/prompts/responsive-design-to-code.prompt.md)
 - Best for: cards, forms, navigation, dashboard layouts, full pages
 - Automatically generates responsive CSS with proper breakpoints
 
@@ -145,8 +145,8 @@ That's it! The AI will:
 3. **Open your AI assistant** (VS Code Copilot, Claude Desktop, etc.)
 4. **Run the Sketch Layer Names prompt:** Analyze and optimize layer names for better semantic quality
 5. **Run the appropriate code generation prompt:**
-   - For simple components: Use [.github/prompts/Design to Code.prompt.md](.github/prompts/design%20to%20code.prompt.md)
-   - For complex layouts: Use [.github/prompts/Responsive Design to Code.prompt.md](.github/prompts/Responsive%20Design%20to%20Code.prompt.md)
+   - For simple components: Use [.github/prompts/design-to-code.prompt.md](.github/prompts/design-to-code.prompt.md)
+   - For complex layouts: Use [.github/prompts/responsive-design-to-code.prompt.md](.github/prompts/responsive-design-to-code.prompt.md)
 6. **Review and refine:** The AI generates your HTML/CSS, which you can iterate on
 
 ---
@@ -157,7 +157,7 @@ That's it! The AI will:
 design-to-code-sketch/
 ├── .github/
 │   └── agents/
-│       └── Design to Code.agent.md     # Custom agent instructions
+│       └── design-to-code.agent.md     # Custom agent instructions
 │   └── prompts/                        # Example prompts
 ├── images/                             # Image assets
 ├── *.html                              # Generated HTML files

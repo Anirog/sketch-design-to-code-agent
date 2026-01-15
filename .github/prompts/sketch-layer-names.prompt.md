@@ -1,5 +1,5 @@
 ---
-agent: Design to Code
+agent: design-to-code
 ---
 Analyze the selected frame in Sketch and review all layer names for semantic quality and HTML/CSS compatibility.
 
