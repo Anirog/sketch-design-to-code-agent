@@ -114,11 +114,11 @@ This step ensures layer names translate seamlessly into semantic HTML elements a
 After layer names are optimized, choose the appropriate prompt:
 
 **For simple components or symbols:**
-- Use **Design to Code** prompt [.github/prompts/Design to Code.prompt.md](.github/prompts/Design to Code.prompt.md)
+- Use **Design to Code** prompt `.github/prompts/Design to Code.prompt.md`
 - Best for: buttons, icons, single UI elements, simple layouts
 
 **For complex or full-page designs:**
-- Use **Responsive Design to Code** prompt (`.github/prompts/Responsive Design to Code.prompt.md`)
+- Use **Responsive Design to Code** prompt `.github/prompts/Responsive Design to Code.prompt.md`
 - Best for: cards, forms, navigation, dashboard layouts, full pages
 - Automatically generates responsive CSS with proper breakpoints
 
@@ -143,8 +143,8 @@ That's it! The AI will:
 3. **Open your AI assistant** (VS Code Copilot, Claude Desktop, etc.)
 4. **Run the Sketch Layer Names prompt:** Analyze and optimize layer names for better semantic quality
 5. **Run the appropriate code generation prompt:**
-   - For simple components: Use "Design to Code.prompt.md"
-   - For complex layouts: Use "Responsive Design to Code.prompt.md"
+   - For simple components: Use `.github/prompts/Design to Code.prompt.md`
+   - For complex layouts: Use `.github/prompts/Responsive Design to Code.prompt.md`
 6. **Review and refine:** The AI generates your HTML/CSS, which you can iterate on
 
 ---
