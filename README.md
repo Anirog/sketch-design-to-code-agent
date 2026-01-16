@@ -53,7 +53,7 @@ The Sketch MCP server allows AI assistants to communicate directly with your Ske
 2. Click the checkbox: **MCP Server:**
 3. The server will start automatically when Sketch is running
 
-![alt text](images/mcp-server-sketch-settings.png)
+![Sketch MCP Server Settings](images/mcp-server-sketch-settings.png)
 
 > 💡 **Note:** The MCP server only works while Sketch is open and a document is active.
 
@@ -95,7 +95,9 @@ This is the **best-supported option** for this project.
 
 **What you do**
 - Put the agent file in `.github/agents/`
-- Copilot automatically uses it when you chat
+- At the bottom of the Copilot chat windows, select the `design-to-code` agent
+
+![VS Code Screenshot](images/vscode-screenshot.png)
 
 **Official documentation**  
 https://code.visualstudio.com/docs/copilot/customization/custom-agents
