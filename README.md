@@ -75,21 +75,123 @@ The documentation includes step-by-step instructions for:
 
 ---
 
-### Step 3️⃣: Add the Custom Agent
+### Step 3️⃣: Add Custom Instructions
 
-The custom agent provides specialized prompts and instructions optimized for design-to-code workflows.
+## How to use this project with different AI tools
 
-#### Official Agent Documentation
+Different AI tools let you give them instructions in different ways.  
+Some support **true agents**, others only support **saved instructions**.  
+All of them can still work with this project — you just set things up slightly differently.
 
-- **VS Code (GitHub Copilot)**
-  - [Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-- **Cursor**
-  - [Custom Rules](https://cursor.com/docs/context/rules)
-- **Claude Desktop**
-  - [Custom Subagents](https://code.claude.com/docs/en/sub-agents#quickstart:-create-your-first-subagent)
-- **Codex**
-  - [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
-  - [Custom Prompts](https://developers.openai.com/codex/custom-prompts)
+Below is what each tool supports, in simple terms, with links to the official docs.
+
+---
+
+### **VS Code (GitHub Copilot)**
+
+This is the **best-supported option** for this project.
+
+- VS Code lets you create a **custom agent** using a file in your project.
+- The agent tells Copilot how it should behave when working with Sketch.
+- This is the setup used to develop and test this project.
+
+**What you do**
+- Put the agent file in `.github/agents/`
+- Copilot automatically uses it when you chat
+
+**Official documentation**  
+https://code.visualstudio.com/docs/copilot/customization/custom-agents
+
+If you’re unsure which tool to use, **start here**.
+
+---
+
+### **Cursor**
+
+Cursor does not support agents, but it does support **persistent instructions**.
+
+- You can create a file that Cursor always reads before responding.
+- These instructions guide how Cursor behaves, but they are not enforced like an agent.
+
+**What this means**
+- Cursor can follow the same rules as the agent
+- It just doesn’t have a formal “agent” system
+
+**Official documentation**  
+https://cursor.com/docs/context/rules
+
+This works well for experimenting and testing.
+
+---
+
+### **Claude Code (CLI / Terminal)**
+
+Claude Code supports **true sub-agents**, similar to Copilot.
+
+- You define them using Markdown files with a small config section at the top.
+- These sub-agents can have specific roles and restrictions.
+
+**Important**
+- This applies only to **Claude Code in the terminal**
+- It is not the same as the desktop app
+
+**Official documentation**  
+https://code.claude.com/docs/en/sub-agents
+
+If you like working in the terminal, this is a good option.
+
+---
+
+### **Claude Desktop (Projects)**
+
+Claude Desktop does **not** support agents.
+
+Instead, it supports **Projects**, which let you:
+- Add files
+- Add written instructions
+- Give Claude more context
+
+**Important limitation**
+- Projects guide Claude’s behaviour, but they do not enforce it
+- This is closer to “helpful notes” than a true agent
+
+**Official documentation**  
+https://support.anthropic.com/en/articles/9517075-what-are-projects
+
+You can still use this project here, just expect to do a bit more manual checking.
+
+---
+
+### **Codex (CLI)**
+
+Codex supports **project-wide instructions**.
+
+- You add an `AGENTS.md` file to your project
+- Codex reads it automatically every time
+- You can also create reusable prompt commands
+
+**Official documentation**
+- AGENTS.md  
+  https://developers.openai.com/codex/guides/agents-md
+- Custom prompts  
+  https://developers.openai.com/codex/custom-prompts
+
+This is the other environment where this project has been tested.
+
+---
+
+## Which one should I use?
+
+- **Want the smoothest experience?**  
+  → VS Code with GitHub Copilot
+
+- **Prefer the terminal?**  
+  → Codex or Claude Code
+
+- **Just experimenting or browsing ideas?**  
+  → Cursor or Claude Desktop
+
+All of them can work — they just offer **different levels of control**.
 
 ---
 
