@@ -79,9 +79,7 @@ The documentation includes step-by-step instructions for:
 
 ## How to use this project with different AI tools
 
-Different AI tools let you give them instructions in different ways.  
-Some support **true agents**, others only support **saved instructions**.  
-All of them can still work with this project — you just set things up slightly differently.
+Different AI tools support this project in different ways. Some support agents, others only support saved instructions.
 
 Below is what each tool supports, in simple terms, with links to the official docs.
 
