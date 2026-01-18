@@ -47,7 +47,31 @@ If no layers are selected, report this and do not guess any values.
 
 ## Expected `Sketch/run_code` Script Behaviour
 
-When retrieving design data, you should use `Sketch/run_code` with a script that closely follows this pattern:
+**CRITICAL: Always use the complete extraction script below. Never simplify, abbreviate, or skip functions.**
+
+When retrieving design data, you **must** use the complete extraction script below. This script includes all necessary functions to extract every design property from Sketch.
+
+**Extraction Checklist - All functions MUST be included:**
+- ✅ `normalizeColor()` - Color normalization
+- ✅ `calculateGradientAngle()` - Gradient angle calculation
+- ✅ `extractFills()` - Fill colors and gradients
+- ✅ `extractBorders()` - Border styles and colors
+- ✅ `extractShadows()` - Outer shadows
+- ✅ `extractInnerShadows()` - Inner shadows
+- ✅ `extractBlurs()` - Blur effects
+- ✅ `extractBlendMode()` - Blend modes
+- ✅ `extractTransform()` - Transformations (rotation, scale, flip)
+- ✅ `extractStackLayout()` - Stack layout properties
+- ✅ `extractOverrides()` - Symbol overrides
+- ✅ `extractExpandedLayers()` - Nested symbol content
+- ✅ `extractStyleNameFromPostscript()` - Font style parsing
+- ✅ `mapFontWeightToNumeric()` - Font weight mapping
+- ✅ `extractTypography()` - Text styling
+- ✅ `extractLayoutConstraints()` - Layout constraints
+- ✅ **`extractCornerRadius()`** - **Border radius (DO NOT SKIP)**
+- ✅ `extractLayer()` - Main extraction function that calls all others
+
+**The complete extraction script:**
 
 ```js
 const sketch = require('sketch');
@@ -522,6 +546,8 @@ function extractLayer(layer) {
   const style = layer.style || {};
   const frame = layer.frame;
 
+  // IMPORTANT: This data object must include ALL style properties.
+  // DO NOT remove any properties, even if you think they're not needed.
   const data = {
     id: layer.id,
     name: layer.name,
@@ -538,7 +564,7 @@ function extractLayer(layer) {
     borders: extractBorders(style),
     shadows: extractShadows(style),
     innerShadows: extractInnerShadows(style),
-    cornerRadius: extractCornerRadius(style),
+    cornerRadius: extractCornerRadius(style), // CRITICAL: Border radius - do not omit
     blendMode: extractBlendMode(layer, style),
     blurs: extractBlurs(style),
     opacity: style.opacity ?? null
@@ -587,8 +613,21 @@ if (!selection.length) {
   throw new Error('No layers selected in Sketch.');
 }
 
-const result = selection.map(extractLayer);
+console.log(JSON.stringify({ layers: result }, null, 2));
+```
 
+**Post-Extraction Validation:**
+
+After running the extraction, verify the returned JSON includes these properties for each layer:
+- `fills`, `borders`, `shadows`, `innerShadows` (arrays, can be empty)
+- `cornerRadius` (number, object, or null)
+- `blurs`, `opacity`, `blendMode`
+- `typography` (for Text layers)
+- `overrides` (for SymbolInstance layers)
+
+If any expected property is missing from the output, the extraction script was incomplete or modified.
+
+> **Critical Warning:** Do **not** simplify, abbreviate, or create a "shorter version" of this extraction script. Every function is required for complete design fidelity. Missing functions = missing design data = incorrect CSS output.
 JSON.stringify({ layers: result }, null, 2);
 ```
 
