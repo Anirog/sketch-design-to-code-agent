@@ -94,10 +94,12 @@ This is the **best-supported option** for this project.
 - This is the setup used to develop and test this project.
 
 **What you do**
-- Put the agent file in `.github/agents/`
+- Put the agent file in `.github/agents`
 - At the bottom of the Copilot chat windows, select the `design-to-code` agent
 
 ![VS Code Screenshot](docs/images/vscode-screenshot.png)
+
+Or if using the included prompt files the design-to-code agent will be selected automatically.
 
 **Official documentation**  
 https://code.visualstudio.com/docs/copilot/customization/custom-agents
