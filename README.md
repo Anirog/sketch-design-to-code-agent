@@ -53,7 +53,7 @@ The Sketch MCP server allows AI assistants to communicate directly with your Ske
 2. Click the checkbox: **MCP Server:**
 3. The server will start automatically when Sketch is running
 
-![Sketch MCP Server Settings](images/mcp-server-sketch-settings.png)
+![Sketch MCP Server Settings](docs/images/mcp-server-sketch-settings.png)
 
 > 💡 **Note:** The MCP server only works while Sketch is open and a document is active.
 
@@ -97,7 +97,7 @@ This is the **best-supported option** for this project.
 - Put the agent file in `.github/agents/`
 - At the bottom of the Copilot chat windows, select the `design-to-code` agent
 
-![VS Code Screenshot](images/vscode-screenshot.png)
+![VS Code Screenshot](docs/images/vscode-screenshot.png)
 
 **Official documentation**  
 https://code.visualstudio.com/docs/copilot/customization/custom-agents
@@ -261,9 +261,10 @@ design-to-code-sketch/
 │   └── agents/
 │       └── design-to-code.agent.md     # Custom agent instructions
 │   └── prompts/                        # Example prompts
-├── images/                             # Image assets
-├── *.html                              # Generated HTML files
-├── *.css                               # Generated CSS files
+├── docs/                               # Generated HTML and CSS files
+├── designs/                            # Original Sketch design exports
+├── design-to-code.sketch               # Sketch document used for testing 
+├── key-technical-decisions.md          # Key technical decisions document 
 └── README.md                           # This file
 ```
 
@@ -271,9 +272,9 @@ design-to-code-sketch/
 
 ## Examples
 
-Check out the included example files (`*.html`, `*.css`) in this repository to see the workflow in action. Each example demonstrates how Sketch designs are transformed into semantic HTML and CSS using this workflow.
+Check out the included example (`*.html` and `*.css`) files in [docs](docs) to see the workflow in action. Each example demonstrates how Sketch designs are transformed into semantic HTML and CSS using this workflow.
 
-See the original design exports from Sketch in the [images/designs](images/designs) folder.
+See the original design exports from Sketch in the [designs](designs) folder.
 
 See the Sketch document [design-to-code.sketch](design-to-code.sketch) I used for this project.
 
